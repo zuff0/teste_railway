@@ -2,6 +2,11 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
+from models.database import Database
+
+# Inicializar (não precisa abrir conexão ainda)
+db = Database()
+
 
 # Carregar variáveis de ambiente do .env
 load_dotenv()
