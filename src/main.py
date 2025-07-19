@@ -1,16 +1,20 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
+from dotenv import load_dotenv
 import os
 
+# Carregar variáveis de ambiente do .env
+load_dotenv()
+
 app = Flask(__name__)
+CORS(app)
 
-@app.route("/api/health", methods=['GET'])
+@app.route("/api/health")
 def health():
-    return jsonify({"status": "ok"})
-
-# Só pra debug em ambiente Railway:
-@app.route("/")
-def hello():
-    return "Backend vivo na raiz também!"
+    return jsonify({
+        "status": "ok",
+        "env_check": os.getenv("TEST_VAR", "não definido")
+    })
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
